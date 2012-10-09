@@ -34,6 +34,21 @@
 		this.language = this.language in dates ? this.language : "en";
 		this.format = DPGlobal.parseFormat(options.format||this.element.data('date-format')||'mm/dd/yyyy');
                 this.isInline = false;
+
+		// pass an override to anything in DPGlobal with a simple space-separated list of values to override
+		// with the `templateOverrides` option - .datepicker({ 'templateOverrides' : 'headTemplate' });
+ 		if ( typeof options.templateOverrides !== "undefined" && options.templateOverrides !== null ) {
+	 		var templateOverrides = options.templateOverrides.split(' ');
+			if ( templateOverrides.length > 0 ) {
+				for ( var i=0; i<templateOverrides.length; i++ ) {
+					var thisOverride = templateOverrides[i];
+					var thisOrigTemplate = DPGlobal[thisOverride];
+					var newTemplate = DPGlobal.template.replace(new RegExp(thisOrigTemplate,'g'), options[thisOverride]);
+					DPGlobal.template = newTemplate;
+				}
+			}
+		}
+
 		this.isInput = this.element.is('input');
 		this.component = this.element.is('.date') ? this.element.find('.add-on') : false;
 		this.hasInput = this.component && this.element.find('input').length;
@@ -803,7 +818,7 @@
 								'</table>'+
 							'</div>'+
 						'</div>';
-                        
+
     $.fn.datepicker.DPGlobal = DPGlobal;
-    
+
 }( window.jQuery );
