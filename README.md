@@ -10,7 +10,7 @@ contributed to by him (yet?)
 
 Attached to a field with the format specified via options:
 
-    <input type="text" value="02-16-2012" id="datepicker">  
+    <input type="text" value="02-16-2012" id="datepicker">
 ######
     $('#datepicker').datepicker({
         format: 'mm-dd-yyyy'
@@ -103,6 +103,16 @@ A standalone .css file (including necessary dropdown styles and alternative, tex
 ## Options
 
 All options that take a "Date" can handle a `Date` object; a String formatted according to the given `format`; or a timedelta relative to today, eg '-1d', '+6m +1y', etc, where valid units are 'd' (day), 'w' (week), 'm' (month), and 'y' (year).
+
+Pass a space-separate list of values called `templateOverrides` that match a property `DPGlobal[thisProp]`, and then an HTML override separately in order to alter HTML templating, like this:
+
+```
+$().datepicker({
+    'templateOverrides' : 'headTemplate contTemplate',
+    'headTemplate'      : '<thead class="my-class">[...]</thead>',
+    'contTemplate'      : '<tbody class="my-class">[...]</tbody>'
+})
+```
 
 ### format
 
