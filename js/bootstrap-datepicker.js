@@ -581,10 +581,10 @@
 			}
 			if (element) {
 				element.change();
-				if (this.autoclose && (!which || which == 'date')) {
-					this.hide();
-				}
 			}
+      if (this.autoclose && (!which || which == 'date')) {
+        this.hide();
+      }
 		},
 
 		moveMonth: function(date, dir){
