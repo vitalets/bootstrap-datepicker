@@ -545,7 +545,7 @@
 								}								
 							} else {
 								var year = parseInt(target.text(), 10)||0;
-								var month = 1;
+								var month = 0;
 								var day = 1;
 								this.viewDate.setUTCFullYear(year);
 								this.element.trigger({
