@@ -104,6 +104,21 @@
 				this.viewMode = this.startViewMode = 1;
 				break;
 		}
+		
+		this.minViewMode = options.minViewMode||this.element.data('date-minviewmode')||0;
+		if (typeof this.minViewMode === 'string') {
+			switch (this.minViewMode) {
+				case 'months':
+					this.minViewMode = 1;
+					break;
+				case 'years':
+					this.minViewMode = 2;
+					break;
+				default:
+					this.minViewMode = 0;
+					break;
+			}
+		}		
 
 		this.todayBtn = (options.todayBtn||this.element.data('date-today-btn')||false);
 		this.todayHighlight = (options.todayHighlight||this.element.data('date-today-highlight')||false);
@@ -517,12 +532,17 @@
 						if (!target.is('.disabled')) {
 							this.viewDate.setUTCDate(1);
 							if (target.is('.month')) {
+								var year = this.viewDate.getUTCFullYear();
 								var month = target.parent().find('span').index(target);
+								var day = 1;
 								this.viewDate.setUTCMonth(month);
 								this.element.trigger({
 									type: 'changeMonth',
 									date: this.viewDate
 								});
+								if ( this.minViewMode == 1 ) {
+									this._setDate(UTCDate(year, month, day,0,0,0,0));
+								}								
 							} else {
 								var year = parseInt(target.text(), 10)||0;
 								this.viewDate.setUTCFullYear(year);
@@ -726,7 +746,7 @@
 
 		showMode: function(dir) {
 			if (dir) {
-				this.viewMode = Math.max(0, Math.min(2, this.viewMode + dir));
+				this.viewMode = Math.max(this.minViewMode, Math.min(2, this.viewMode + dir));
 			}
 			/*
 			  vitalets: fixing bug of very special conditions:
