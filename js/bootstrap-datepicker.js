@@ -545,11 +545,16 @@
 								}								
 							} else {
 								var year = parseInt(target.text(), 10)||0;
+								var month = 1;
+								var day = 1;
 								this.viewDate.setUTCFullYear(year);
 								this.element.trigger({
 									type: 'changeYear',
 									date: this.viewDate
 								});
+								if ( this.minViewMode == 2 ) {
+									this._setDate(UTCDate(year, month, day,0,0,0,0));
+								}								
 							}
 							this.showMode(-1);
 							this.fill();
